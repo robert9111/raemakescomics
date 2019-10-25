@@ -11,4 +11,4 @@ render((
     </BrowserRouter>
 ), document.getElementById('root'));
 
-serviceworker.register();
+serviceworker.unregister();

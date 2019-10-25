@@ -1,13 +1,12 @@
 const express = require('express');
-//const dotenv = require('dotenv');
+const dotenv = require('dotenv');
 const path = require('path');
 const connectDB = require('./config/db');
 
-//dotenv.config({ path: './config/config.env' });
+dotenv.config({ path: './config/config.env' });
 
-
-const app = express();
 connectDB();
+const app = express();
 
 // Serve the static files from the React app
 app.use(express.static(path.join(__dirname, 'client/build')));
@@ -31,8 +30,8 @@ const server = app.listen(
     );
 
 // Handle unhandled promise rejections
-process.on('unhandledRejection', (err, promise) => {
-    console.log(`Error: ${err.message}`);
-    // Close server and exit process
-    server.close(() => process.exit(1));
-});
+// process.on('unhandledRejection', (err, promise) => {
+//     console.log(`Error: ${err.message}`);
+//     // Close server and exit process
+//     server.close(() => process.exit(1));
+// });
