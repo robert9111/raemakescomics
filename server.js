@@ -2,11 +2,18 @@ const express = require('express');
 const dotenv = require('dotenv');
 const path = require('path');
 const connectDB = require('./config/db');
+const bodyParser = require('body-parser');
 
 dotenv.config({ path: './config/config.env' });
 
 connectDB();
+// Import routes
+const login = require('./routes/login'); 
+
 const app = express();
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 // Serve the static files from the React app
 app.use(express.static(path.join(__dirname, 'client/build')));
@@ -17,6 +24,9 @@ app.get('/api/getList', (req,res) => {
     res.json(list);
     console.log('Sent list of items');
 });
+
+// User the route we imported
+app.use('/login', login);
 
 // Handles any requests that don't match the ones above
 app.get('*', (req,res) =>{
